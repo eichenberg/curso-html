@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercícios HTML</title>
+  </head>
+  <body>
+    <header>
+      <h1>Exercícios HTML 5</h1>
+    </header>
+
+    <nav>
+      <a href="aula-001/index.html">Exercício 001</a>
+    </nav>
+
+    <section id="conteudo">
+      <!-- 
+        O conteudo dos links serao injetado aqui em tempo de execução da página...
+        ou seja: toda vez que o usurio clicar em um link na seção de navegação
+       -->
+    </section>
+
+    <footer>
+      <p>Curso HTML 2025</p>
+    </footer>
+
+    <script>
+      document.querySelectorAll("a").forEach((link) => {
+        const section = document.querySelector("#conteudo");
+
+        link.onclick = function (event) {
+          event.preventDefault(); // Evita o comportamento padrão do link
+          fetch(link.href)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Erro ao carregar o conteúdo");
+              }
+              return response.text();
+            })
+            .then((data) => {
+              section.innerHTML = data;
+            })
+            .catch((error) => {
+              console.error("Erro:", error);
+              section.innerHTML = "<p>Erro ao carregar o conteúdo.</p>";
+            });
+        };
+      });
+    </script>
+  </body>
+</html>
